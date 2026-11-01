@@ -1,0 +1,11 @@
+import { Router } from "express";
+import { listAppointments, availableSlots, createAppointment, updateAppointment } from "../controllers/appointmentController.js";
+import { requireAuth } from "../middleware/auth.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+const router = Router();
+router.use(requireAuth);
+router.get("/availability", asyncHandler(availableSlots));
+router.get("/", asyncHandler(listAppointments));
+router.post("/", asyncHandler(createAppointment));
+router.patch("/:id", asyncHandler(updateAppointment));
+export default router;

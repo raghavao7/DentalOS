@@ -1,0 +1,12 @@
+import { Router } from "express";
+import { listLeads, createLead, updateLead, deleteLead, convertLeadToAppointment } from "../controllers/leadController.js";
+import { requireAuth } from "../middleware/auth.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+const router = Router();
+router.use(requireAuth);
+router.get("/", asyncHandler(listLeads));
+router.post("/", asyncHandler(createLead));
+router.post("/:id/convert", asyncHandler(convertLeadToAppointment));
+router.patch("/:id", asyncHandler(updateLead));
+router.delete("/:id", asyncHandler(deleteLead));
+export default router;
